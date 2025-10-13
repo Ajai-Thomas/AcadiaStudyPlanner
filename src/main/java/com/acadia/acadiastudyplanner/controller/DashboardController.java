@@ -64,9 +64,12 @@ public class DashboardController implements Initializable {
             case "Progress":
                 fxmlFile = "progress-view.fxml";
                 break;
+            case "Settings": // Added case for Settings
+                fxmlFile = "settings-view.fxml";
+                break;
             default:
                 System.out.println(clickedButton.getText() + " View not implemented yet.");
-                updateActiveButton(null); // Revert to dashboard if view doesn't exist
+                updateActiveButton(null);
                 return;
         }
         try {
@@ -99,7 +102,10 @@ public class DashboardController implements Initializable {
             activeButton.getStyleClass().remove("nav-button");
             activeButton.getStyleClass().add("nav-button-active");
         } else {
-            ((Button) navigationBox.getChildren().get(0)).fire();
+            // Default to dashboard if something goes wrong
+            if (!navigationBox.getChildren().isEmpty()) {
+                ((Button) navigationBox.getChildren().get(0)).fire();
+            }
         }
     }
 

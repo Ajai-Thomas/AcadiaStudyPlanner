@@ -11,26 +11,28 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    private static Scene scene;
+    // Changed from 'private' to 'public' to allow access from other controllers
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/view/dashboard-view.fxml")));
-            scene = new Scene(root, 1100, 700);
+            // Start with the login view instead of the dashboard
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/view/login-view.fxml")));
+            scene = new Scene(root, 500, 450); // Set an appropriate size for the login window
 
             // Programmatically add the main stylesheet
             String mainStylesheet = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/styles.css")).toExternalForm();
             scene.getStylesheets().add(mainStylesheet);
 
-            primaryStage.setTitle("Acadia - Personalized Study Planner");
+            primaryStage.setTitle("Acadia Login");
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(1000);
-            primaryStage.setMinHeight(650);
+            primaryStage.setResizable(false); // Login window shouldn't be resizable
             primaryStage.show();
+
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
-            System.err.println("Failed to load the main FXML file or CSS.");
+            System.err.println("Failed to load the initial FXML file or CSS.");
         }
     }
 
