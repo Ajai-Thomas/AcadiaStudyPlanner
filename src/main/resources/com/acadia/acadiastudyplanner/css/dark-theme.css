@@ -1,0 +1,24 @@
+.root {
+    -acadia-off-white: #2b2b2b;
+    -acadia-light-gray: #4f4f4f;
+    -acadia-text-primary: #e0e0e0;
+    -acadia-text-secondary: #a9a9a9;
+}
+
+.card,
+.schedule-grid-container,
+.subjects-list-view {
+    -fx-background-color: #3c3f41;
+}
+
+.subjects-list-view .list-cell { -fx-border-color: transparent transparent #4f4f4f transparent; }
+.subjects-list-view .list-cell:filled:hover { -fx-background-color: #4b4b4b; }
+
+.form-textfield {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #e0e0e0;
+    -fx-prompt-text-fill: #a9a9a9;
+    -fx-border-color: #4f4f4f;
+}
+
+.form-textfield:focused { -fx-border-color: -acadia-sage; }

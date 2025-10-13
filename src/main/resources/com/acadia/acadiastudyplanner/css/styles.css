@@ -1,0 +1,81 @@
+/* --- Root Styles and Color Palette --- */
+.root {
+    -fx-font-family: "Inter", "System", sans-serif;
+    -acadia-sage: #8A9A8A;
+    -acadia-red: #C81E24;
+    -acadia-maroon: #7B1A1E;
+    -acadia-dark-green: #2F4539;
+    -acadia-dark-gray: #242827;
+    -acadia-off-white: #f4f5f7;
+    -acadia-light-gray: #e0e2e5;
+    -acadia-text-primary: #1e1e1e;
+    -acadia-text-secondary: #5c5c5c;
+}
+
+/* --- Navigation Panel (Left Side) --- */
+.nav-panel { -fx-background-color: -acadia-dark-gray; }
+.app-title { -fx-font-size: 28px; -fx-font-weight: 800; -fx-text-fill: white; -fx-padding: 0 0 5 0; }
+.app-subtitle { -fx-font-size: 14px; -fx-font-weight: 300; -fx-text-fill: -acadia-sage; -fx-padding: 0 0 40 0; }
+.nav-button, .nav-button-active { -fx-font-size: 14px; -fx-background-radius: 8px; -fx-pref-width: 180px; -fx-alignment: center-left; -fx-padding: 12 20; -fx-cursor: hand; }
+.nav-button { -fx-background-color: transparent; -fx-text-fill: -acadia-light-gray; -fx-font-weight: 500; }
+.nav-button:hover { -fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; }
+.nav-button-active { -fx-background-color: -acadia-red; -fx-text-fill: white; -fx-font-weight: 600; }
+
+/* --- Main Content Area (Center) --- */
+.main-content { -fx-background-color: -acadia-off-white; }
+.header-title { -fx-font-size: 26px; -fx-font-weight: 700; -fx-text-fill: -acadia-text-primary; }
+.header-subtitle { -fx-font-size: 15px; -fx-text-fill: -acadia-text-secondary; }
+.add-task-button { -fx-background-color: -acadia-dark-green; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 10px; -fx-padding: 12 20; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3); }
+.add-task-button:hover { -fx-background-color: derive(-acadia-dark-green, -10%); }
+.scroll-pane, .scroll-pane .viewport { -fx-background-color: transparent; }
+.scroll-pane { -fx-hbar-policy: never; }
+.section-title { -fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: -acadia-text-primary; }
+
+/* --- Card Styles --- */
+.card { -fx-background-color: white; -fx-padding: 20px; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 4); -fx-spacing: 8px; }
+.card:hover { -fx-translate-y: -4px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 5); }
+.card-category-red { -fx-font-size: 11px; -fx-font-weight: 700; -fx-text-fill: -acadia-maroon; }
+.card-category-green { -fx-font-size: 11px; -fx-font-weight: 700; -fx-text-fill: -acadia-dark-green; }
+.card-title { -fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: -acadia-text-primary; }
+.card-description { -fx-font-size: 13px; -fx-text-fill: -acadia-text-secondary; -fx-wrap-text: true; }
+.card-time { -fx-font-size: 12px; -fx-font-weight: 500; -fx-text-fill: -acadia-text-primary; -fx-padding: 8 0 0 0; }
+
+/* --- Weekly Schedule Grid Styles --- */
+.schedule-grid-container { -fx-background-color: white; -fx-padding: 20px; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 4); }
+.grid-day-header { -fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: -acadia-text-secondary; }
+.schedule-item { -fx-background-radius: 8px; -fx-min-height: 70px; }
+.schedule-item:hover { -fx-translate-y: -3px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3); }
+.item-title { -fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: white; }
+.item-time { -fx-font-size: 11px; -fx-font-weight: 400; -fx-text-fill: rgba(255, 255, 255, 0.8); }
+.red-item { -fx-background-color: -acadia-red; }
+.green-item { -fx-background-color: -acadia-dark-green; }
+.gray-item { -fx-background-color: -acadia-sage; }
+
+/* --- Forms & Input Fields --- */
+.form-label { -fx-font-size: 13px; -fx-font-weight: 500; -fx-text-fill: -acadia-text-secondary; }
+.form-textfield { -fx-font-size: 14px; -fx-background-color: -acadia-off-white; -fx-border-color: -acadia-light-gray; -fx-border-width: 1.5px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8 12; }
+.form-textfield:focused { -fx-border-color: -acadia-dark-green; }
+
+/* --- ListView styles --- */
+.subjects-list-view { -fx-border-color: -acadia-light-gray; -fx-border-width: 1.5px; -fx-border-radius: 12px; -fx-background-color: white; -fx-background-radius: 12px; }
+.subjects-list-view .list-cell { -fx-font-size: 14px; -fx-padding: 15px; -fx-background-color: transparent; -fx-border-color: transparent transparent -acadia-light-gray transparent; -fx-border-width: 1px; }
+.subjects-list-view .list-cell:filled:hover { -fx-background-color: -acadia-off-white; }
+.subjects-list-view .list-cell:filled:selected { -fx-background-color: -acadia-sage; -fx-text-fill: white; }
+
+/* --- Button Styles --- */
+.delete-button { -fx-background-color: -acadia-maroon; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 10px; -fx-padding: 12 20; -fx-cursor: hand; -fx-pref-width: 2000; }
+.delete-button:hover { -fx-background-color: derive(-acadia-maroon, -15%); }
+.clear-button { -fx-background-color: -acadia-light-gray; -fx-text-fill: -acadia-text-secondary; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 10px; -fx-padding: 12 20; -fx-cursor: hand; }
+.clear-button:hover { -fx-background-color: derive(-acadia-light-gray, -10%); }
+
+/* --- Progress Bar Styles --- */
+.progress-bar-custom .bar { -fx-background-color: -acadia-dark-green; -fx-background-insets: 0; -fx-background-radius: 6px; -fx-padding: 0.75em; }
+.progress-bar-custom .track { -fx-background-color: -acadia-off-white; -fx-background-insets: 0; -fx-background-radius: 6px; }
+
+/* --- Theme Toggle Switch --- */
+.toggle-switch { -fx-cursor: hand; }
+.toggle-switch .track { -fx-background-color: #5a5a5a; -fx-background-radius: 20; -fx-pref-width: 50px; -fx-pref-height: 26px; }
+.toggle-switch .thumb { -fx-background-color: white; -fx-background-radius: 20; }
+.toggle-switch:selected .track { -fx-background-color: -acadia-sage; }
+.theme-label { -fx-font-size: 13px; -fx-text-fill: -acadia-light-gray; -fx-font-weight: 500; }
+

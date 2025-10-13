@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- The 'stylesheets' attribute has been removed from this root element -->
+<VBox spacing="20.0" styleClass="main-content" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acadia.acadiastudyplanner.controller.SubjectsController">
+    <padding><Insets bottom="30.0" left="40.0" right="40.0" top="30.0" /></padding>
+    <Label styleClass="header-title" text="My Subjects" />
+    <Label styleClass="header-subtitle" text="Manage your courses, difficulty ratings, and exam dates here." />
+    <HBox spacing="30.0" VBox.vgrow="ALWAYS">
+        <VBox HBox.hgrow="ALWAYS">
+            <Label styleClass="section-title" text="Current Subjects" />
+            <ListView fx:id="subjectsListView" styleClass="subjects-list-view" VBox.vgrow="ALWAYS" />
+        </VBox>
+        <VBox minWidth="300.0" spacing="15.0" styleClass="card">
+            <Label fx:id="formTitleLabel" styleClass="card-title" text="Add a New Subject" />
+            <VBox spacing="5.0">
+                <Label styleClass="form-label" text="Subject Name" />
+                <TextField fx:id="subjectNameField" promptText="e.g., Data Structures" styleClass="form-textfield" />
+            </VBox>
+            <VBox spacing="5.0">
+                <Label styleClass="form-label" text="Perceived Difficulty (1-5)" />
+                <TextField fx:id="difficultyField" promptText="e.g., 4" styleClass="form-textfield" />
+            </VBox>
+            <VBox spacing="5.0">
+                <Label styleClass="form-label" text="Next Exam Date (Optional)" />
+                <TextField fx:id="examDateField" promptText="e.g., 2025-12-15" styleClass="form-textfield" />
+            </VBox>
+            <HBox spacing="10.0">
+                <Button fx:id="saveButton" onAction="#handleSaveSubject" styleClass="add-task-button" text="Add Subject" HBox.hgrow="ALWAYS" />
+                <Button onAction="#handleClearForm" styleClass="clear-button" text="Clear" />
+            </HBox>
+            <Button fx:id="deleteButton" onAction="#handleDeleteSubject" styleClass="delete-button" text="Delete Subject" />
+        </VBox>
+    </HBox>
+</VBox>
+

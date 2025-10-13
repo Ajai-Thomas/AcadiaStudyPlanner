@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- The stylesheets attribute has been removed from this root element -->
+<BorderPane fx:id="mainBorderPane" prefHeight="700.0" prefWidth="1100.0" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acadia.acadiastudyplanner.controller.DashboardController">
+    <left>
+        <VBox alignment="TOP_CENTER" prefWidth="220.0" styleClass="nav-panel">
+            <padding><Insets top="20.0" /></padding>
+            <Label styleClass="app-title" text="ACADIA" />
+            <Label styleClass="app-subtitle" text="Study Planner" />
+            <VBox fx:id="navigationBox" alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="ALWAYS">
+                <padding><Insets left="20.0" right="20.0" /></padding>
+                <Button onAction="#handleNavigation" styleClass="nav-button-active" text="Dashboard" />
+                <Button onAction="#handleNavigation" styleClass="nav-button" text="My Subjects" />
+                <Button onAction="#handleNavigation" styleClass="nav-button" text="Progress" />
+                <Button onAction="#handleNavigation" styleClass="nav-button" text="Settings" />
+            </VBox>
+            <HBox alignment="CENTER" spacing="10.0">
+                <padding><Insets bottom="30.0" top="10.0" /></padding>
+                <Label styleClass="theme-label" text="Light" />
+                <ToggleButton fx:id="themeToggle" styleClass="toggle-switch" />
+                <Label styleClass="theme-label" text="Dark" />
+            </HBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox fx:id="dashboardContent" styleClass="main-content">
+            <padding><Insets bottom="20.0" left="40.0" right="40.0" top="30.0" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="header-title" text="Welcome Back, Student!" />
+                    <Label styleClass="header-subtitle" text="Here's your study plan for the week. Let's make it a productive one." />
+                </VBox>
+                <Button styleClass="add-task-button" text="+ New Study Task" />
+            </HBox>
+            <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                <VBox spacing="30.0">
+                    <padding><Insets bottom="10.0" top="30.0" /></padding>
+                    <VBox spacing="15.0">
+                        <Label styleClass="section-title" text="Today's Focus" />
+                        <HBox spacing="20.0">
+                            <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                                <Label styleClass="card-category-red" text="HIGH PRIORITY" />
+                                <Label styleClass="card-title" text="Data Structures Final Review" />
+                                <Label styleClass="card-description" text="Review chapters on Trees and Graphs." />
+                                <Label styleClass="card-time" text="Scheduled: 4:00 PM - 5:30 PM" />
+                            </VBox>
+                            <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                                <Label styleClass="card-category-green" text="UPCOMING DEADLINE" />
+                                <Label styleClass="card-title" text="Calculus II Assignment" />
+                                <Label styleClass="card-description" text="Finish problem set 3 on integration." />
+                                <Label styleClass="card-time" text="Due: Tomorrow, 11:59 PM" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="15.0">
+                        <Label styleClass="section-title" text="Weekly Schedule" />
+                        <AnchorPane fx:id="schedulePane" styleClass="schedule-grid-container" />
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>
+
