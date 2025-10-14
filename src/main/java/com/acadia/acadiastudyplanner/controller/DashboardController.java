@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -31,23 +33,49 @@ public class DashboardController implements Initializable {
     @FXML private VBox dashboardContent;
     @FXML private VBox navigationBox;
     @FXML private ToggleButton themeToggle;
+    @FXML private VBox logoContainer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadDashboardLogo();
+
         if (schedulePane != null) {
             populateScheduleGrid();
         }
         themeToggle.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            Scene scene = Main.getScene();
-            if (scene == null) return;
-            String darkThemePath = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/dark-theme.css")).toExternalForm();
-            if (isSelected) {
-                scene.getStylesheets().add(darkThemePath);
-            } else {
-                scene.getStylesheets().remove(darkThemePath);
-            }
+            updateTheme(isSelected);
         });
     }
+
+    private void loadDashboardLogo() {
+        // This method now ONLY loads and displays the dark mode logo.
+        try {
+            Image darkLogo = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/acadia/acadiastudyplanner/images/darkmode.png")));
+            ImageView logoView = new ImageView(darkLogo);
+            logoView.setFitHeight(120);
+            logoView.setPreserveRatio(true);
+            logoContainer.getChildren().add(0, logoView);
+        } catch (Exception e) {
+            System.err.println("Dashboard logo (darkmode.png) could not be loaded: " + e.getMessage());
+            Label fallbackTitle = new Label("ACADIA");
+            fallbackTitle.getStyleClass().add("app-title");
+            logoContainer.getChildren().add(0, fallbackTitle);
+        }
+    }
+
+    private void updateTheme(boolean isDarkMode) {
+        Scene scene = Main.getScene();
+        if (scene == null) return;
+        String darkThemePath = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/dark-theme.css")).toExternalForm();
+
+        if (isDarkMode) {
+            scene.getStylesheets().add(darkThemePath);
+        } else {
+            scene.getStylesheets().remove(darkThemePath);
+        }
+        // No longer need to switch the logo image, as it's always darkmode.png
+    }
+
 
     @FXML
     private void handleNavigation(ActionEvent event) {
@@ -64,7 +92,7 @@ public class DashboardController implements Initializable {
             case "Progress":
                 fxmlFile = "progress-view.fxml";
                 break;
-            case "Settings": // Added case for Settings
+            case "Settings":
                 fxmlFile = "settings-view.fxml";
                 break;
             default:
@@ -102,10 +130,7 @@ public class DashboardController implements Initializable {
             activeButton.getStyleClass().remove("nav-button");
             activeButton.getStyleClass().add("nav-button-active");
         } else {
-            // Default to dashboard if something goes wrong
-            if (!navigationBox.getChildren().isEmpty()) {
-                ((Button) navigationBox.getChildren().get(0)).fire();
-            }
+            ((Button) navigationBox.getChildren().get(0)).fire();
         }
     }
 

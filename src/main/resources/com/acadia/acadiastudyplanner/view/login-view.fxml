@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" spacing="20.0" styleClass="main-content" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acadia.acadiastudyplanner.controller.LoginController">
@@ -12,21 +14,29 @@
         <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
     </padding>
     <VBox alignment="CENTER" maxWidth="350.0" spacing="25.0" styleClass="card">
-        <VBox alignment="CENTER" spacing="5.0">
-            <Label styleClass="app-title-login" text="ACADIA" />
-            <Label styleClass="header-subtitle" text="Personalized Study Planner" />
+        <VBox fx:id="logoContainer" alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" />
+            </padding>
         </VBox>
-        <VBox spacing="15.0">
-            <VBox spacing="5.0">
-                <Label styleClass="form-label" text="Username" />
-                <TextField fx:id="usernameField" promptText="Enter your username" styleClass="form-textfield" />
-            </VBox>
-            <VBox spacing="5.0">
-                <Label styleClass="form-label" text="Password" />
-                <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="form-textfield" />
-            </VBox>
-        </VBox>
+
+        <!-- Replaced VBox with a GridPane for perfect alignment -->
+        <GridPane vgap="8.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <Label styleClass="form-label" text="Username" GridPane.rowIndex="0" />
+            <TextField fx:id="usernameField" promptText="Enter your username" styleClass="form-textfield" GridPane.rowIndex="1" />
+            <Label styleClass="form-label" text="Password" GridPane.rowIndex="2">
+                <GridPane.margin>
+                    <Insets top="10.0" />
+                </GridPane.margin>
+            </Label>
+            <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="form-textfield" GridPane.rowIndex="3" />
+        </GridPane>
+
         <Label fx:id="errorLabel" managed="false" styleClass="error-label" text="Invalid username or password." visible="false" />
-        <Button onAction="#handleLogin" styleClass="add-task-button" text="Login" maxWidth="Infinity"/>
+        <Button onAction="#handleLogin" styleClass="add-task-button" text="Login" maxWidth="Infinity" />
     </VBox>
 </VBox>
+
