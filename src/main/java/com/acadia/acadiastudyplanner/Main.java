@@ -11,23 +11,22 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    // Changed from 'private' to 'public' to allow access from other controllers
     public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Start with the login view instead of the dashboard
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/view/login-view.fxml")));
-            scene = new Scene(root, 500, 450); // Set an appropriate size for the login window
+            scene = new Scene(root, 500, 450);
 
-            // Programmatically add the main stylesheet
+            // Add Google Fonts and main stylesheet programmatically
+            String interFont = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap";
             String mainStylesheet = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/styles.css")).toExternalForm();
-            scene.getStylesheets().add(mainStylesheet);
+            scene.getStylesheets().addAll(interFont, mainStylesheet);
 
             primaryStage.setTitle("Acadia Login");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false); // Login window shouldn't be resizable
+            primaryStage.setResizable(false);
             primaryStage.show();
 
         } catch (IOException | NullPointerException e) {

@@ -1,96 +1,94 @@
-/* --- Root Styles and Color Palette --- */
+/* --- Root Styles and New Color Palette --- */
 .root {
-    -fx-font-family: "Inter", "System", sans-serif;
-    -acadia-sage: #8A9A8A;
-    -acadia-red: #C81E24;
-    -acadia-maroon: #7B1A1E;
-    -acadia-dark-green: #2F4539;
-    -acadia-dark-gray: #242827;
-    -acadia-off-white: #f4f5f7;
-    -acadia-light-gray: #e0e2e5;
-    -acadia-text-primary: #1e1e1e;
-    -acadia-text-secondary: #5c5c5c;
+    -fx-font-family: "Inter", sans-serif;
+
+    /* Light Theme Palette */
+    -app-bg: #F9F9FB; /* Off-white background */
+    -app-content-bg: #FFFFFF; /* Pure white for cards/containers */
+    -app-nav-bg: #1B1B1D; /* Near-black for nav */
+    -app-border: #EAEAEB; /* Light gray border */
+    -app-text-primary: #1B1B1D; /* Near-black for main text */
+    -app-text-secondary: #7A7A7E; /* Gray for subtitles */
+    -app-text-nav: #A9A9AE; /* Light gray for nav text */
+    -app-accent: #5E5CE6; /* A vibrant purple/blue accent */
+    -app-accent-hover: #4C4AD9;
+    -app-priority-high: #E63946; /* A strong red for high priority */
+    -app-priority-med: #2A9D8F; /* A calming teal */
+    -app-priority-low: #E9C46A; /* A soft yellow */
 }
 
-/* --- Login Page Specific Styles --- */
-.app-title-login {
-    -fx-font-size: 32px;
-    -fx-font-weight: 800;
-    -fx-text-fill: -acadia-text-primary;
-}
-
-.error-label {
-    -fx-font-size: 13px;
-    -fx-text-fill: -acadia-maroon;
-    -fx-font-weight: 500;
-}
-
+/* --- Login Page Styles --- */
+.app-title-login { -fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: -app-text-primary; }
+.error-label { -fx-font-size: 13px; -fx-text-fill: -app-priority-high; -fx-font-weight: 500; }
 
 /* --- Navigation Panel (Left Side) --- */
-.nav-panel { -fx-background-color: -acadia-dark-gray; }
-.app-title { -fx-font-size: 28px; -fx-font-weight: 800; -fx-text-fill: white; -fx-padding: 0 0 5 0; }
-.app-subtitle { -fx-font-size: 14px; -fx-font-weight: 300; -fx-text-fill: -acadia-sage; -fx-padding: 0 0 40 0; }
-.nav-button, .nav-button-active { -fx-font-size: 14px; -fx-background-radius: 8px; -fx-pref-width: 180px; -fx-alignment: center-left; -fx-padding: 12 20; -fx-cursor: hand; }
-.nav-button { -fx-background-color: transparent; -fx-text-fill: -acadia-light-gray; -fx-font-weight: 500; }
-.nav-button:hover { -fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; }
-.nav-button-active { -fx-background-color: -acadia-red; -fx-text-fill: white; -fx-font-weight: 600; }
+.nav-panel { -fx-background-color: -app-nav-bg; }
+.app-title { -fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: white; }
+.app-subtitle { -fx-font-size: 13px; -fx-font-weight: 400; -fx-text-fill: -app-text-nav; }
+.nav-button, .nav-button-active { -fx-font-size: 14px; -fx-background-radius: 8px; -fx-pref-width: 200px; -fx-alignment: center-left; -fx-padding: 12 18; -fx-cursor: hand; }
+.nav-button { -fx-background-color: transparent; -fx-text-fill: -app-text-nav; -fx-font-weight: 500; }
+.nav-button:hover { -fx-background-color: rgba(255, 255, 255, 0.05); -fx-text-fill: white; }
+.nav-button:hover .nav-icon, .nav-button-active .nav-icon { -fx-fill: white; }
+.nav-button-active { -fx-background-color: -app-accent; -fx-text-fill: white; -fx-font-weight: 600; }
+
+/* --- Icon Styles --- */
+.nav-icon { -fx-fill: -app-text-nav; -fx-scale-x: 0.9; -fx-scale-y: 0.9; }
+.add-task-icon { -fx-fill: white; }
 
 /* --- Main Content Area (Center) --- */
-.main-content { -fx-background-color: -acadia-off-white; }
-.header-title { -fx-font-size: 26px; -fx-font-weight: 700; -fx-text-fill: -acadia-text-primary; }
-.header-subtitle { -fx-font-size: 15px; -fx-text-fill: -acadia-text-secondary; }
-.add-task-button { -fx-background-color: -acadia-dark-green; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 10px; -fx-padding: 12 20; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3); }
-.add-task-button:hover { -fx-background-color: derive(-acadia-dark-green, -10%); }
+.main-content { -fx-background-color: -app-bg; }
+.header-title { -fx-font-size: 28px; -fx-font-weight: 700; -fx-text-fill: -app-text-primary; }
+.header-subtitle { -fx-font-size: 15px; -fx-text-fill: -app-text-secondary; }
+.add-task-button { -fx-background-color: -app-accent; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 8px; -fx-padding: 10 18; -fx-cursor: hand; }
+.add-task-button:hover { -fx-background-color: -app-accent-hover; }
 .scroll-pane, .scroll-pane .viewport { -fx-background-color: transparent; }
 .scroll-pane { -fx-hbar-policy: never; }
-.section-title { -fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: -acadia-text-primary; }
-.section-title-red { -fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: -acadia-maroon; }
+.section-title { -fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: -app-text-primary; }
+.section-title-red { -fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: -app-priority-high; }
 
 /* --- Card Styles --- */
-.card { -fx-background-color: white; -fx-padding: 20px; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 4); -fx-spacing: 8px; }
-.card:hover { -fx-translate-y: -4px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 5); }
-.card-category-red { -fx-font-size: 11px; -fx-font-weight: 700; -fx-text-fill: -acadia-maroon; }
-.card-category-green { -fx-font-size: 11px; -fx-font-weight: 700; -fx-text-fill: -acadia-dark-green; }
-.card-title { -fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: -acadia-text-primary; }
-.card-description { -fx-font-size: 13px; -fx-text-fill: -acadia-text-secondary; -fx-wrap-text: true; }
-.card-time { -fx-font-size: 12px; -fx-font-weight: 500; -fx-text-fill: -acadia-text-primary; -fx-padding: 8 0 0 0; }
+.card { -fx-background-color: -app-content-bg; -fx-padding: 25px; -fx-background-radius: 12px; -fx-border-color: -app-border; -fx-border-width: 1px; -fx-border-radius: 12px; -fx-spacing: 8px; }
+.card-category-red { -fx-font-size: 11px; -fx-font-weight: 700; -fx-text-fill: -app-priority-high; }
+.card-category-green { -fx-font-size: 11px; -fx-font-weight: 700; -fx-text-fill: -app-priority-med; }
+.card-title { -fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: -app-text-primary; }
+.card-description { -fx-font-size: 14px; -fx-text-fill: -app-text-secondary; -fx-wrap-text: true; }
+.card-time { -fx-font-size: 12px; -fx-font-weight: 500; -fx-text-fill: -app-text-primary; -fx-padding: 8 0 0 0; }
 
 /* --- Weekly Schedule Grid Styles --- */
-.schedule-grid-container { -fx-background-color: white; -fx-padding: 20px; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 4); }
-.grid-day-header { -fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: -acadia-text-secondary; }
+.schedule-grid-container { -fx-background-color: -app-content-bg; -fx-padding: 25px; -fx-background-radius: 12px; -fx-border-color: -app-border; -fx-border-width: 1px; -fx-border-radius: 12px;}
+.grid-day-header { -fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: -app-text-secondary; -fx-padding: 0 0 10 0; }
 .schedule-item { -fx-background-radius: 8px; -fx-min-height: 70px; }
-.schedule-item:hover { -fx-translate-y: -3px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3); }
 .item-title { -fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: white; }
 .item-time { -fx-font-size: 11px; -fx-font-weight: 400; -fx-text-fill: rgba(255, 255, 255, 0.8); }
-.red-item { -fx-background-color: -acadia-red; }
-.green-item { -fx-background-color: -acadia-dark-green; }
-.gray-item { -fx-background-color: -acadia-sage; }
+.red-item { -fx-background-color: -app-priority-high; }
+.green-item { -fx-background-color: -app-priority-med; }
+.gray-item { -fx-background-color: -app-text-secondary; }
 
 /* --- Forms & Input Fields --- */
-.form-label { -fx-font-size: 13px; -fx-font-weight: 500; -fx-text-fill: -acadia-text-secondary; }
-.form-textfield { -fx-font-size: 14px; -fx-background-color: -acadia-off-white; -fx-border-color: -acadia-light-gray; -fx-border-width: 1.5px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8 12; }
-.form-textfield:focused { -fx-border-color: -acadia-dark-green; }
+.form-label { -fx-font-size: 13px; -fx-font-weight: 500; -fx-text-fill: -app-text-secondary; }
+.form-textfield { -fx-font-size: 14px; -fx-background-color: -app-bg; -fx-border-color: -app-border; -fx-border-width: 1px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 10 12; }
+.form-textfield:focused { -fx-border-color: -app-accent; }
 
 /* --- ListView styles --- */
-.subjects-list-view { -fx-border-color: -acadia-light-gray; -fx-border-width: 1.5px; -fx-border-radius: 12px; -fx-background-color: white; -fx-background-radius: 12px; }
-.subjects-list-view .list-cell { -fx-font-size: 14px; -fx-padding: 15px; -fx-background-color: transparent; -fx-border-color: transparent transparent -acadia-light-gray transparent; -fx-border-width: 1px; }
-.subjects-list-view .list-cell:filled:hover { -fx-background-color: -acadia-off-white; }
-.subjects-list-view .list-cell:filled:selected { -fx-background-color: -acadia-sage; -fx-text-fill: white; }
+.subjects-list-view { -fx-border-color: -app-border; -fx-border-width: 1px; -fx-border-radius: 12px; -fx-background-color: -app-content-bg; -fx-background-radius: 12px; }
+.subjects-list-view .list-cell { -fx-font-size: 14px; -fx-padding: 15px; -fx-background-color: transparent; -fx-border-color: transparent transparent -app-border transparent; -fx-border-width: 1px; -fx-text-fill: -app-text-primary; }
+.subjects-list-view .list-cell:filled:hover { -fx-background-color: -app-bg; }
+.subjects-list-view .list-cell:filled:selected { -fx-background-color: -app-accent; -fx-text-fill: white; }
 
 /* --- Button Styles --- */
-.delete-button { -fx-background-color: -acadia-maroon; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 10px; -fx-padding: 12 20; -fx-cursor: hand; -fx-pref-width: 2000; }
-.delete-button:hover { -fx-background-color: derive(-acadia-maroon, -15%); }
-.clear-button { -fx-background-color: -acadia-light-gray; -fx-text-fill: -acadia-text-secondary; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 10px; -fx-padding: 12 20; -fx-cursor: hand; }
-.clear-button:hover { -fx-background-color: derive(-acadia-light-gray, -10%); }
+.delete-button { -fx-background-color: -app-priority-high; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 8px; -fx-padding: 10 18; -fx-cursor: hand; -fx-pref-width: 2000; }
+.delete-button:hover { -fx-background-color: derive(-app-priority-high, -10%); }
+.clear-button { -fx-background-color: #EAEAEB; -fx-text-fill: -app-text-secondary; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 8px; -fx-padding: 10 18; -fx-cursor: hand; }
+.clear-button:hover { -fx-background-color: derive(#EAEAEB, -5%); }
 
 /* --- Progress Bar Styles --- */
-.progress-bar-custom .bar { -fx-background-color: -acadia-dark-green; -fx-background-insets: 0; -fx-background-radius: 6px; -fx-padding: 0.75em; }
-.progress-bar-custom .track { -fx-background-color: -acadia-off-white; -fx-background-insets: 0; -fx-background-radius: 6px; }
+.progress-bar-custom .bar { -fx-background-color: -app-accent; -fx-background-insets: 0; -fx-background-radius: 6px; -fx-padding: 0.75em; }
+.progress-bar-custom .track { -fx-background-color: -app-bg; -fx-background-insets: 0; -fx-background-radius: 6px; }
 
 /* --- Theme Toggle Switch --- */
 .toggle-switch { -fx-cursor: hand; }
-.toggle-switch .track { -fx-background-color: #5a5a5a; -fx-background-radius: 20; -fx-pref-width: 50px; -fx-pref-height: 26px; }
-.toggle-switch .thumb { -fx-background-color: white; -fx-background-radius: 20; }
-.toggle-switch:selected .track { -fx-background-color: -acadia-sage; }
-.theme-label { -fx-font-size: 13px; -fx-text-fill: -acadia-light-gray; -fx-font-weight: 500; }
+.toggle-switch .track { -fx-background-color: #EAEAEB; -fx-background-radius: 20; -fx-pref-width: 50px; -fx-pref-height: 26px; }
+.toggle-switch .thumb { -fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1); }
+.toggle-switch:selected .track { -fx-background-color: -app-accent; }
+.theme-label { -fx-font-size: 13px; -fx-text-fill: -app-text-nav; -fx-font-weight: 500; }
 

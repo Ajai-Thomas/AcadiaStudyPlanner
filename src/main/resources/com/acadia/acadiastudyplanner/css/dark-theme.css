@@ -1,24 +1,46 @@
+/* --- Dark Theme Overrides --- */
 .root {
-    -acadia-off-white: #2b2b2b;
-    -acadia-light-gray: #4f4f4f;
-    -acadia-text-primary: #e0e0e0;
-    -acadia-text-secondary: #a9a9a9;
+    /* Dark Theme Palette */
+    -app-bg: #1B1B1D; /* Main background */
+    -app-content-bg: #2C2C2E; /* Card background */
+    -app-nav-bg: #1B1B1D; /* Nav is same as main bg */
+    -app-border: #3A3A3C; /* Border color */
+    -app-text-primary: #F2F2F7; /* Primary text */
+    -app-text-secondary: #8E8E93; /* Secondary text */
+    -app-text-nav: #8E8E93; /* Nav text */
+    -app-accent: #6461F8; /* A slightly brighter accent for dark mode */
+    -app-accent-hover: #5451E5;
 }
 
-.card,
-.schedule-grid-container,
-.subjects-list-view {
-    -fx-background-color: #3c3f41;
+/* --- Component-Specific Overrides --- */
+.nav-panel {
+    -fx-border-color: -app-border transparent transparent transparent;
 }
 
-.subjects-list-view .list-cell { -fx-border-color: transparent transparent #4f4f4f transparent; }
-.subjects-list-view .list-cell:filled:hover { -fx-background-color: #4b4b4b; }
+.subjects-list-view .list-cell:filled:selected {
+    -fx-text-fill: white; /* Ensure selected text is always white */
+}
 
+/* Invert form textfield colors */
 .form-textfield {
-    -fx-background-color: #2b2b2b;
-    -fx-text-fill: #e0e0e0;
-    -fx-prompt-text-fill: #a9a9a9;
-    -fx-border-color: #4f4f4f;
+    -fx-text-fill: -app-text-primary;
+    -fx-prompt-text-fill: -app-text-secondary;
 }
 
-.form-textfield:focused { -fx-border-color: -acadia-sage; }
+/* Invert clear button colors */
+.clear-button {
+    -fx-background-color: #3A3A3C;
+    -fx-text-fill: -app-text-primary;
+}
+.clear-button:hover {
+    -fx-background-color: derive(#3A3A3C, 10%);
+}
+
+/* --- Theme Toggle Switch in Dark Mode --- */
+.toggle-switch .track {
+    -fx-background-color: #3A3A3C;
+}
+.toggle-switch .thumb {
+    -fx-background-color: #8E8E93;
+}
+
