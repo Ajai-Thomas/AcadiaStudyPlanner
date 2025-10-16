@@ -69,10 +69,11 @@ public class DashboardController implements Initializable {
         if (scene == null) return;
         String darkThemePath = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/dark-theme.css")).toExternalForm();
 
+        // FIX 1: Ensure the dark theme is removed first to prevent duplicates.
+        scene.getStylesheets().remove(darkThemePath);
+
         if (isDarkMode) {
             scene.getStylesheets().add(darkThemePath);
-        } else {
-            scene.getStylesheets().remove(darkThemePath);
         }
         // No longer need to switch the logo image, as it's always darkmode.png
     }
@@ -109,21 +110,39 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void onNewTaskButtonClick() {
         try {
-        // Load the Add Task dialog FXML
+            // Load the Add Task dialog FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/acadia/acadiastudyplanner/view/add-task-view.fxml"));
             Parent root = loader.load();
+
+            // FIX 2: Get the controller instance to retrieve the data later
+            AddTaskController controller = loader.getController();
 
             Stage stage = new Stage();
             stage.setTitle("Add New Study Task");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL); // Makes window modal
             stage.showAndWait();
+
+            // FIX 3: Check for new task data after the modal is closed and integrate it
+            AddTaskController.TaskData newTask = controller.getNewTaskData();
+            if (newTask != null) {
+                integrateNewTask(newTask);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // FIX 4: Placeholder method to handle the new task data
+    private void integrateNewTask(AddTaskController.TaskData task) {
+        System.out.println("Dashboard received new task: " + task.name + " (" + task.subject + ") on " + task.date + " for " + task.duration + " hours.");
+        // TODO: This is where actual logic would go to:
+        // 1. Add the Task to a central data service.
+        // 2. Update the weekly schedule (populateScheduleGrid) or today's focus section.
     }
 
     private void setView(Node node) {
@@ -185,4 +204,3 @@ public class DashboardController implements Initializable {
         return itemBox;
     }
 }
-

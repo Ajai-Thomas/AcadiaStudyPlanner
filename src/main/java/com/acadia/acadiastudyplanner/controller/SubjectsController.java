@@ -62,10 +62,14 @@ public class SubjectsController implements Initializable {
 
     @FXML private void handleDeleteSubject() {
         if (selectedSubject != null) subjects.remove(selectedSubject);
+        // FIX 1: Clear the form after deleting the subject.
+        clearForm();
     }
 
     @FXML private void handleClearForm() {
         subjectsListView.getSelectionModel().clearSelection();
+        // FIX 2: Explicitly call clearForm() to ensure the form fields are reset.
+        clearForm();
     }
 
     private void populateForm(Subject subject) {
@@ -89,4 +93,3 @@ public class SubjectsController implements Initializable {
         deleteButton.setManaged(false);
     }
 }
-

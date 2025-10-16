@@ -19,10 +19,11 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/view/login-view.fxml")));
             scene = new Scene(root, 500, 450);
 
-            // Add Google Fonts and main stylesheet programmatically
-            String interFont = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap";
+            // Add main stylesheet programmatically
+            // FIX: Removed the unsupported external Google Font URL.
+            // Custom fonts should be loaded via @font-face rule in the CSS file.
             String mainStylesheet = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/styles.css")).toExternalForm();
-            scene.getStylesheets().addAll(interFont, mainStylesheet);
+            scene.getStylesheets().add(mainStylesheet);
 
             primaryStage.setTitle("Acadia Login");
             primaryStage.setScene(scene);
@@ -43,4 +44,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-

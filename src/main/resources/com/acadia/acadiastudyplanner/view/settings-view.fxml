@@ -8,48 +8,50 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<!-- The 'stylesheets' attribute has been removed -->
 <VBox spacing="20.0" styleClass="main-content" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acadia.acadiastudyplanner.controller.SettingsController">
     <padding>
         <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
     </padding>
     <Label styleClass="header-title" text="Application Settings" />
-    <Label styleClass="header-subtitle" text="Manage your preferences and application data." />
+    <Label styleClass="header-subtitle" text="Manage your preferences and application data."
+    />
 
     <VBox spacing="30.0" VBox.vgrow="ALWAYS">
         <padding>
             <Insets top="20.0" />
         </padding>
-        <!-- User Profile Section -->
         <VBox spacing="15.0" styleClass="card">
             <Label styleClass="section-title" text="User Profile" />
             <HBox alignment="CENTER_LEFT" spacing="20.0">
+
                 <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                     <Label styleClass="form-label" text="Student Name" />
-                    <TextField promptText="e.g., Alex Doe" styleClass="form-textfield" text="Student" />
+                    <TextField fx:id="studentNameField" promptText="e.g., Alex Doe" styleClass="form-textfield" text="Student" />
                 </VBox>
-                <Button styleClass="add-task-button" text="Save Changes" />
+                <Button styleClass="add-task-button" text="Save Changes" onAction="#handleSaveProfile" />
+
             </HBox>
         </VBox>
 
-        <!-- Data Management Section -->
         <VBox spacing="15.0" styleClass="card">
             <Label styleClass="section-title" text="Data Management" />
             <Separator prefWidth="200.0" />
-            <Label styleClass="form-label" text="Export or import your subject and progress data." />
+            <Label styleClass="form-label" text="Export or import your subject and progress data."
+            />
             <HBox spacing="15.0">
-                <Button styleClass="add-task-button" text="Export Data" />
-                <Button styleClass="clear-button" text="Import Data" />
+                <Button styleClass="add-task-button" text="Export Data" onAction="#handleExportData" />
+                <Button styleClass="clear-button" text="Import Data" onAction="#handleImportData" />
             </HBox>
         </VBox>
 
-        <!-- Danger Zone Section -->
         <VBox spacing="15.0" styleClass="card">
+
             <Label styleClass="section-title-red" text="Danger Zone" />
             <Separator prefWidth="200.0" />
             <HBox alignment="CENTER_LEFT" spacing="20.0">
-                <Label styleClass="form-label" HBox.hgrow="ALWAYS" text="Permanently delete all subjects and progress data. This action cannot be undone." />
-                <Button styleClass="delete-button" text="Reset All Data" />
+                <Label styleClass="form-label" HBox.hgrow="ALWAYS" text="Permanently delete all subjects and progress data. This action cannot be undone."
+                />
+                <Button styleClass="delete-button" text="Reset All Data" onAction="#handleResetAllData" />
             </HBox>
         </VBox>
     </VBox>
