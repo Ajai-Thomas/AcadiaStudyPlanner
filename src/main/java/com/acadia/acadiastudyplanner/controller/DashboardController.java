@@ -140,28 +140,23 @@ public class DashboardController implements Initializable {
     @FXML
     private void onNewTaskButtonClick() {
         try {
-            // Load the Add Task dialog FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/acadia/acadiastudyplanner/view/add-task-view.fxml"));
             Parent root = loader.load();
 
-            // FIX 2: Get the controller instance to retrieve the data later
-            AddTaskController controller = loader.getController();
+            // Get controller and set DashboardController reference
+            AddTaskController addTaskController = loader.getController();
+            addTaskController.setDashboardController(this);
 
             Stage stage = new Stage();
             stage.setTitle("Add New Study Task");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Makes window modal
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-
-            // FIX 3: Check for new task data after the modal is closed and integrate it
-            AddTaskController.TaskData newTask = controller.getNewTaskData();
-            if (newTask != null) {
-                integrateNewTask(newTask);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     // FIX 4: Placeholder method to handle the new task data
     private void integrateNewTask(AddTaskController.TaskData task) {
