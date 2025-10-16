@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadia.acadiastudyplanner.controller.AddTaskController" spacing="10" alignment="CENTER" prefWidth="400" prefHeight="300">
+    <Label text="Add New Study Task" style="-fx-font-size: 18px;" />
+    <TextField fx:id="taskNameField" promptText="Task Name" />
+    <TextField fx:id="subjectField" promptText="Subject/Topic" />
+    <DatePicker fx:id="datePicker" />
+    <TextField fx:id="durationField" promptText="Duration (hours)" />
+    <Button text="Add Task" onAction="#handleAddTask" />
+</VBox>
