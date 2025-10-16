@@ -20,7 +20,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
+import javafx.stage.Stage;
+import javafx.stage.Modality;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -105,6 +106,22 @@ public class DashboardController implements Initializable {
             Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
             setView(view);
         } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void onNewTaskButtonClick() {
+        try {
+        // Load the Add Task dialog FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/acadia/acadiastudyplanner/view/add-task-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Add New Study Task");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Makes window modal
+            stage.showAndWait();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
