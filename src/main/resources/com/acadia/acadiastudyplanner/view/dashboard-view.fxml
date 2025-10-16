@@ -59,11 +59,14 @@
                     <Label styleClass="header-title" text="Welcome Back, Student!" />
                     <Label styleClass="header-subtitle" text="Here's your study plan for the week. Let's make it a productive one." />
                 </VBox>
-                <Button styleClass="add-task-button" text="New Task" contentDisplay="LEFT" graphicTextGap="8">
+                <Button fx:id="newTaskButton" styleClass="add-task-button" text="New Task" contentDisplay="LEFT" graphicTextGap="8" onAction="#onNewTaskButtonClick">
                     <graphic>
-                        <Group><SVGPath styleClass="add-task-icon" content="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></Group>
+                        <Group>
+                            <SVGPath styleClass="add-task-icon" content="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </Group>
                     </graphic>
                 </Button>
+
             </HBox>
             <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
                 <VBox spacing="40.0">
