@@ -28,6 +28,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import com.acadia.acadiastudyplanner.model.Task;
 
 public class DashboardController implements Initializable {
 
@@ -55,28 +56,28 @@ public class DashboardController implements Initializable {
     public ObservableList<Task> getTaskList() {
         return taskList;
     }
-     private void refreshScheduleGrid() {
-        schedulePane.getChildren().clear();
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        AnchorPane.setTopAnchor(grid, 0.0);
-        AnchorPane.setBottomAnchor(grid, 0.0);
-        AnchorPane.setLeftAnchor(grid, 0.0);
-        AnchorPane.setRightAnchor(grid, 0.0);
-        
-        String[] days = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
-        for (int i = 0; i < days.length; i++) {
-            grid.add(new Label(days[i]) {{ getStyleClass().add("grid-day-header"); }}, i, 0);
+        private void refreshScheduleGrid() {
+            schedulePane.getChildren().clear();
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            AnchorPane.setTopAnchor(grid, 0.0);
+            AnchorPane.setBottomAnchor(grid, 0.0);
+            AnchorPane.setLeftAnchor(grid, 0.0);
+            AnchorPane.setRightAnchor(grid, 0.0);
+            
+            String[] days = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
+            for (int i = 0; i < days.length; i++) {
+                grid.add(new Label(days[i]) {{ getStyleClass().add("grid-day-header"); }}, i, 0);
+            }
+            
+            int row = 1;
+            for (Task task : taskList) {
+                // For simplicity, add all to same column 0; you can improve by mapping date to columns
+                grid.add(createScheduleItem(task.getName(), task.getDate() + " Duration: " + task.getDuration(), "green-item"), 0, row++);
+            }
+            schedulePane.getChildren().add(grid);
         }
-        
-        int row = 1;
-        for (Task task : taskList) {
-            // For simplicity, add all to same column 0; you can improve by mapping date to columns
-            grid.add(createScheduleItem(task.getName(), task.getDate() + " Duration: " + task.getDuration(), "green-item"), 0, row++);
-        }
-        schedulePane.getChildren().add(grid);
-    }
     private void loadDashboardLogo() {
         // This method now ONLY loads and displays the dark mode logo.
         try {
