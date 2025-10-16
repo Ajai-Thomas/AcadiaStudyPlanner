@@ -52,6 +52,9 @@ public class DashboardController implements Initializable {
             refreshScheduleGrid();
         });
     }
+    public ObservableList<Task> getTaskList() {
+        return taskList;
+    }
      private void refreshScheduleGrid() {
         schedulePane.getChildren().clear();
         GridPane grid = new GridPane();
@@ -137,25 +140,34 @@ public class DashboardController implements Initializable {
         }
     }
 
-    @FXML
-    private void onNewTaskButtonClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/acadia/acadiastudyplanner/view/add-task-view.fxml"));
-            Parent root = loader.load();
+@FXML
+private void onNewTaskButtonClick() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/acadia/acadiastudyplanner/view/add-task-view.fxml"));
+        Parent root = loader.load();
 
-            // Get controller and set DashboardController reference
-            AddTaskController addTaskController = loader.getController();
-            addTaskController.setDashboardController(this);
+        Stage stage = new Stage();
+        stage.setTitle("Add New Study Task");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
 
-            Stage stage = new Stage();
-            stage.setTitle("Add New Study Task");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Show dialog and wait
+        stage.showAndWait();
+
+        // After dialog closes, get the new task data
+        AddTaskController addTaskController = loader.getController();
+        AddTaskController.TaskData newTaskData = addTaskController.getNewTaskData();
+
+        if (newTaskData != null) {
+            Task newTask = new Task(newTaskData.name, newTaskData.subject, newTaskData.date, newTaskData.duration);
+            taskList.add(newTask);
         }
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
 
 
     // FIX 4: Placeholder method to handle the new task data
