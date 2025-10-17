@@ -22,11 +22,13 @@
         <VBox spacing="15.0" styleClass="card">
             <Label styleClass="section-title" text="User Profile" />
             <HBox alignment="CENTER_LEFT" spacing="20.0">
+
                 <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                     <Label styleClass="form-label" text="Student Name" />
                     <TextField fx:id="userNameField" promptText="e.g., Alex Doe" styleClass="form-textfield" text="Student" />
                 </VBox>
-                <Button styleClass="add-task-button" text="Save Changes" />
+                <Button onAction="#handleUpdateName" styleClass="add-task-button" text="Save Changes" />
+
             </HBox>
         </VBox>
 
@@ -35,17 +37,18 @@
             <Separator prefWidth="200.0" />
             <Label styleClass="form-label" text="Export or import your subject and progress data." />
             <HBox spacing="15.0">
-                <Button styleClass="add-task-button" text="Export Data" />
-                <Button styleClass="clear-button" text="Import Data" />
+                <Button onAction="#handleExportData" styleClass="add-task-button" text="Export Data" />
+                <Button onAction="#handleImportData" styleClass="clear-button" text="Import Data" />
             </HBox>
         </VBox>
 
         <VBox spacing="15.0" styleClass="card">
+
             <Label styleClass="section-title-red" text="Danger Zone" />
             <Separator prefWidth="200.0" />
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                 <Label styleClass="form-label" HBox.hgrow="ALWAYS" text="Permanently delete all subjects and progress data. This action cannot be undone." />
-                <Button styleClass="delete-button" text="Reset All Data" />
+                <Button onAction="#handleResetAllData" styleClass="delete-button" text="Reset All Data" />
             </HBox>
         </VBox>
     </VBox>

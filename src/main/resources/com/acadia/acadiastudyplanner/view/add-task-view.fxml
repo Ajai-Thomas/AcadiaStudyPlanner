@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acadia.acadiastudyplanner.controller.AddTaskController" alignment="CENTER" spacing="10.0" prefWidth="400.0" prefHeight="450.0" styleClass="main-content">
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+
+    <VBox spacing="15.0" styleClass="card" maxWidth="350.0">
+        <Label styleClass="section-title" text="Add New Study Task" />
+
+        <VBox spacing="5.0">
+            <Label styleClass="form-label" text="Task Name" />
+            <TextField fx:id="taskNameField" promptText="e.g., Review Linked Lists" styleClass="form-textfield" />
+        </VBox>
+
+        <VBox spacing="5.0">
+            <Label styleClass="form-label" text="Subject/Topic" />
+            <TextField fx:id="subjectField" promptText="e.g., Data Structures" styleClass="form-textfield" />
+        </VBox>
+
+        <VBox spacing="5.0">
+            <Label styleClass="form-label" text="Due Date" />
+            <DatePicker fx:id="datePicker" promptText="Select a date" />
+        </VBox>
+
+        <VBox spacing="5.0">
+            <Label styleClass="form-label" text="Duration (hours)" />
+            <TextField fx:id="durationField" promptText="e.g., 2.5" styleClass="form-textfield" />
+        </VBox>
+
+        <Button text="Add Task" onAction="#handleAddTask" styleClass="add-task-button" maxWidth="Infinity" VBox.vgrow="NEVER">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </Button>
+    </VBox>
+</VBox>
