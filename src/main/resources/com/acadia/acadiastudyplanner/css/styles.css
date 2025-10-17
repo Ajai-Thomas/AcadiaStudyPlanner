@@ -91,4 +91,3 @@
 .toggle-switch .thumb { -fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1); }
 .toggle-switch:selected .track { -fx-background-color: -app-accent; }
 .theme-label { -fx-font-size: 13px; -fx-text-fill: -app-text-nav; -fx-font-weight: 500; }
-
