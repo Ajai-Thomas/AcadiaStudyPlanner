@@ -1,5 +1,3 @@
-//AIzaSyD4eg56lhj2dxqb1Vey4ipmF_aXd72aBYA
-
 package com.acadia.acadiastudyplanner.service;
 
 import com.acadia.acadiastudyplanner.data.DatabaseManager;
@@ -17,14 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-// NOTE: You will need a JSON library for parsing (like Gson or Jackson).
-// For simplicity in this example, we will use basic string concatenation for JSON payload creation.
-
 public class SchedulingService {
 
-    // IMPORTANT: Replace this with your actual Gemini API Key
-    private static final String API_KEY = "AIzaSyD4eg56lhj2dxqb1Vey4ipmF_aXd72aBYA";
-    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY;
+    // IMPORTANT: Load the API key from an environment variable for security
+    private static final String API_KEY = System.getenv("GEMINI_API_KEY");
+    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
     private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 
     private final int userId;
@@ -34,25 +29,21 @@ public class SchedulingService {
         if (this.userId == -1) {
             throw new IllegalStateException("SchedulingService initialized without a logged-in user.");
         }
+        if (API_KEY == null || API_KEY.isBlank()) {
+            throw new IllegalStateException("GEMINI_API_KEY environment variable not set.");
+        }
     }
 
-    /**
-     * Executes the scheduling logic by gathering data and calling the Gemini API.
-     * @return The raw JSON schedule response from the API.
-     */
     public String generateWeeklySchedule() throws SQLException, IOException, InterruptedException {
-        // 1. Gather all required data
         List<Subject> subjects = DatabaseManager.loadSubjects(userId);
-        List<StudyTask> pendingTasks = getPendingTasks(); // Assuming this method is implemented
+        List<StudyTask> pendingTasks = getPendingTasks();
         Map<String, Object> prefs = DatabaseManager.loadUserPreferences(userId);
         List<Map<String, Object>> availability = DatabaseManager.loadAvailableSlots(userId);
 
-        // 2. Build the LLM prompt and request payload
         String systemInstruction = buildSystemInstruction(prefs);
         String userQuery = buildUserQuery(subjects, pendingTasks, availability);
         String jsonPayload = buildJsonPayload(userQuery, systemInstruction);
 
-        // 3. Execute API Call
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL))
                 .header("Content-Type", "application/json")
@@ -64,21 +55,14 @@ public class SchedulingService {
         if (response.statusCode() != 200) {
             throw new IOException("Gemini API call failed with status: " + response.statusCode() + ". Response body: " + response.body());
         }
-
-        // TODO: In the next step, we would parse this response.body string into a schedule object.
         return response.body();
     }
 
-    // --- Data Gathering Helpers ---
-
     private List<StudyTask> getPendingTasks() throws SQLException {
-        // Loads all tasks and filters for pending status
         return DatabaseManager.loadTasksForProgress(userId).stream()
                 .filter(task -> task.getStatus().equalsIgnoreCase("Pending"))
                 .collect(Collectors.toList());
     }
-
-    // --- Prompt Construction Methods (CRITICAL) ---
 
     private String buildSystemInstruction(Map<String, Object> prefs) {
         String preferences = (String) prefs.getOrDefault("LearningPreferences", "No specific learning style provided.");
@@ -120,9 +104,7 @@ public class SchedulingService {
         );
     }
 
-    // Simplistic JSON payload builder for text generation
     private String buildJsonPayload(String userQuery, String systemInstruction) {
-        // Define the structured JSON output schema expected from the LLM
         String responseSchema = """
             {
               "type": "ARRAY",
@@ -139,8 +121,6 @@ public class SchedulingService {
               }
             }
             """;
-
-        // FIX: The 'config' field must be nested inside 'generationConfig'
         return String.format(
                 "{\n" +
                         "  \"contents\": [{\"parts\": [{\"text\": \"%s\"}]}],\n" +
@@ -150,9 +130,9 @@ public class SchedulingService {
                         "    \"responseSchema\": %s\n" +
                         "  }\n" +
                         "}",
-                userQuery.replace("\"", "\\\"").replace("\n", "\\n"), // Escape user query
-                systemInstruction.replace("\"", "\\\"").replace("\n", "\\n"), // Escape system instruction
-                responseSchema.replaceAll("\\s+", " ") // Compact the schema
+                userQuery.replace("\"", "\\\"").replace("\n", "\\n"),
+                systemInstruction.replace("\"", "\\\"").replace("\n", "\\n"),
+                responseSchema.replaceAll("\\s+", " ")
         );
     }
 }
