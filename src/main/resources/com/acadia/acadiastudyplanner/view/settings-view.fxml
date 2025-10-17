@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<!-- The 'stylesheets' attribute has been removed -->
 <VBox spacing="20.0" styleClass="main-content" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acadia.acadiastudyplanner.controller.SettingsController">
     <padding>
         <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
@@ -20,19 +19,17 @@
         <padding>
             <Insets top="20.0" />
         </padding>
-        <!-- User Profile Section -->
         <VBox spacing="15.0" styleClass="card">
             <Label styleClass="section-title" text="User Profile" />
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                 <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                     <Label styleClass="form-label" text="Student Name" />
-                    <TextField promptText="e.g., Alex Doe" styleClass="form-textfield" text="Student" />
+                    <TextField fx:id="userNameField" promptText="e.g., Alex Doe" styleClass="form-textfield" text="Student" />
                 </VBox>
                 <Button styleClass="add-task-button" text="Save Changes" />
             </HBox>
         </VBox>
 
-        <!-- Data Management Section -->
         <VBox spacing="15.0" styleClass="card">
             <Label styleClass="section-title" text="Data Management" />
             <Separator prefWidth="200.0" />
@@ -43,7 +40,6 @@
             </HBox>
         </VBox>
 
-        <!-- Danger Zone Section -->
         <VBox spacing="15.0" styleClass="card">
             <Label styleClass="section-title-red" text="Danger Zone" />
             <Separator prefWidth="200.0" />

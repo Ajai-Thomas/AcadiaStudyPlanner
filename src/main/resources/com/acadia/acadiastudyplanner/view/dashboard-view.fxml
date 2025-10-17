@@ -16,7 +16,6 @@
     <left>
         <VBox alignment="TOP_CENTER" prefWidth="240.0" styleClass="nav-panel">
             <padding><Insets top="20.0" /></padding>
-            <!-- The "Study Planner" Label has been removed -->
             <VBox fx:id="logoContainer" alignment="CENTER" spacing="5.0">
                 <padding><Insets bottom="40.0" /></padding>
             </VBox>
@@ -56,7 +55,7 @@
             <padding><Insets bottom="30.0" left="50.0" right="50.0" top="40.0" /></padding>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                 <VBox HBox.hgrow="ALWAYS">
-                    <Label styleClass="header-title" text="Welcome Back, Student!" />
+                    <Label fx:id="greetingLabel" styleClass="header-title" text="Welcome Back, Student!" />
                     <Label styleClass="header-subtitle" text="Here's your study plan for the week. Let's make it a productive one." />
                 </VBox>
                 <Button styleClass="add-task-button" text="New Task" contentDisplay="LEFT" graphicTextGap="8">
@@ -94,4 +93,3 @@
         </VBox>
     </center>
 </BorderPane>
-

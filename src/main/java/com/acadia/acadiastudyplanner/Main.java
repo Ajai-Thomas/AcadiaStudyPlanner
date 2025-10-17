@@ -9,20 +9,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+import com.acadia.acadiastudyplanner.data.DatabaseManager;
+
 public class Main extends Application {
 
     public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) {
+        DatabaseManager.initializeDatabase();
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/view/login-view.fxml")));
-            scene = new Scene(root, 500, 450);
+            scene = new Scene(root, 500, 600);
 
             // Add Google Fonts and main stylesheet programmatically
             String interFont = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap";
             String mainStylesheet = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/styles.css")).toExternalForm();
             scene.getStylesheets().addAll(interFont, mainStylesheet);
+
 
             primaryStage.setTitle("Acadia Login");
             primaryStage.setScene(scene);
