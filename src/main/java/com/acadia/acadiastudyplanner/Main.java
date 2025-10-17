@@ -9,21 +9,25 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+import com.acadia.acadiastudyplanner.data.DatabaseManager;
+
 public class Main extends Application {
 
     public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) {
+        DatabaseManager.initializeDatabase();
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/view/login-view.fxml")));
-            scene = new Scene(root, 500, 450);
+            scene = new Scene(root, 500, 600);
 
             // Add main stylesheet programmatically
             // FIX: Removed the unsupported external Google Font URL.
             // Custom fonts should be loaded via @font-face rule in the CSS file.
             String mainStylesheet = Objects.requireNonNull(getClass().getResource("/com/acadia/acadiastudyplanner/css/styles.css")).toExternalForm();
             scene.getStylesheets().add(mainStylesheet);
+
 
             primaryStage.setTitle("Acadia Login");
             primaryStage.setScene(scene);

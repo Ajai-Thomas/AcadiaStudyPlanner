@@ -1,46 +1,51 @@
 package com.acadia.acadiastudyplanner.controller;
 
+import com.acadia.acadiastudyplanner.data.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/**
- * Controller for the settings-view.fxml.
- * This handles user preferences and data management.
- */
 public class SettingsController implements Initializable {
 
-    @FXML private TextField studentNameField; // FIX 1: Linked FXML field
-
-    private String studentName = "Student"; // Simple placeholder for profile data
+    @FXML private TextField userNameField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // FIX 2: Load initial value (though in a real app, this would be loaded from persistence)
-        studentNameField.setText(studentName);
-        System.out.println("Settings Controller initialized.");
+        loadUserProfile();
     }
 
-    // --- User Profile Handler ---
-
-    @FXML
-    private void handleSaveProfile() {
-        String newName = studentNameField.getText().trim();
-        if (!newName.isEmpty()) {
-            studentName = newName;
-            System.out.println("ACTION: Profile updated to " + studentName);
-            showAlert(Alert.AlertType.INFORMATION, "Profile Updated", "Your student name has been saved.");
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Input Error", "Student name cannot be empty.");
+    private void loadUserProfile() {
+        if (userNameField != null) {
+            try {
+                Map<String, Object> prefs = DatabaseManager.loadUserPreferences(LoginController.currentUserID);
+                userNameField.setText((String) prefs.get("DisplayName"));
+            } catch (SQLException e) {
+                userNameField.setText("Database Error");
+            }
         }
     }
 
-    // --- Data Management Handlers ---
+    @FXML
+    private void handleUpdateName() {
+        String newName = userNameField.getText().trim();
+        if (newName.isEmpty()) {
+            showError("Input Error", "Display Name cannot be empty.");
+            return;
+        }
+        try {
+            DatabaseManager.updateDisplayName(LoginController.currentUserID, newName);
+            showInfo("Success", "Display Name updated successfully!");
+        } catch (SQLException e) {
+            showError("Database Error", "Failed to update display name: " + e.getMessage());
+        }
+    }
 
     @FXML
     private void handleExportData() {
@@ -58,13 +63,10 @@ public class SettingsController implements Initializable {
         // TODO: Implement FileChooser and actual data deserialization.
     }
 
-    // --- Danger Zone Handler ---
-
     @FXML
     private void handleResetAllData() {
         System.out.println("ACTION: Reset All Data button clicked.");
 
-        // FIX 3: Confirmation Dialog for destructive action
         Optional<ButtonType> result = showAlert(Alert.AlertType.CONFIRMATION, "Confirm Data Reset",
                 "WARNING: This will permanently delete ALL subjects and progress data. Are you absolutely sure?");
 
@@ -77,8 +79,22 @@ public class SettingsController implements Initializable {
         }
     }
 
-    // --- Utility Method ---
+    private void showError(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
+    private void showInfo(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    
     private Optional<ButtonType> showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

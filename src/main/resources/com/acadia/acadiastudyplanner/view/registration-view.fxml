@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" styleClass="main-content" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acadia.acadiastudyplanner.controller.RegistrationController">
+    <padding>
+        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+    </padding>
+    <VBox alignment="CENTER" maxWidth="350.0" spacing="15.0" styleClass="card">
+        <VBox fx:id="logoContainer" alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" />
+            </padding>
+        </VBox>
+        <Label styleClass="form-title" text="Create New Account" />
+        <GridPane vgap="8.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <Label styleClass="form-label" text="Your Name" GridPane.rowIndex="0" />
+            <TextField fx:id="nameField" promptText="Your preferred display name" styleClass="form-textfield" GridPane.rowIndex="1" />
+
+            <Label styleClass="form-label" text="Username" GridPane.rowIndex="2">
+                <GridPane.margin>
+                    <Insets top="10.0" />
+                </GridPane.margin>
+            </Label>
+            <TextField fx:id="usernameField" promptText="Choose a username" styleClass="form-textfield" GridPane.rowIndex="3" />
+
+            <Label styleClass="form-label" text="Password" GridPane.rowIndex="4">
+                <GridPane.margin>
+                    <Insets top="10.0" />
+                </GridPane.margin>
+            </Label>
+            <PasswordField fx:id="passwordField" promptText="Choose a password" styleClass="form-textfield" GridPane.rowIndex="5" />
+
+            <Label styleClass="form-label" text="Confirm Password" GridPane.rowIndex="6">
+                <GridPane.margin>
+                    <Insets top="10.0" />
+                </GridPane.margin>
+            </Label>
+            <PasswordField fx:id="confirmPasswordField" promptText="Re-enter password" styleClass="form-textfield" GridPane.rowIndex="7" />
+        </GridPane>
+
+        <Label fx:id="messageLabel" managed="false" styleClass="error-label" text="Validation or success message." visible="false" />
+
+        <Button onAction="#handleRegister" styleClass="add-task-button" text="Register" maxWidth="Infinity">
+            <VBox.margin>
+                <Insets top="5.0" />
+            </VBox.margin>
+        </Button>
+
+        <Hyperlink onAction="#handleSwitchToLogin" styleClass="secondary-link" text="Already have an account? Sign In" underline="true">
+            <VBox.margin>
+                <Insets top="5.0" />
+            </VBox.margin>
+        </Hyperlink>
+    </VBox>
+</VBox>

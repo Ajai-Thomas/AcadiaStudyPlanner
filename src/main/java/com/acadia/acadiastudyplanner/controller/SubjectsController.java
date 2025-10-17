@@ -1,16 +1,19 @@
 package com.acadia.acadiastudyplanner.controller;
 
+import com.acadia.acadiastudyplanner.data.DatabaseManager;
 import com.acadia.acadiastudyplanner.model.Subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SubjectsController implements Initializable {
@@ -25,9 +28,7 @@ public class SubjectsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        subjects.add(new Subject("Data Structures", 4, "2025-12-10"));
-        subjects.add(new Subject("Calculus II", 5, "2025-12-18"));
-        subjects.add(new Subject("Software Engineering", 3, ""));
+        loadSubjectsFromDatabase();
         subjectsListView.setItems(subjects);
         subjectsListView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> {
@@ -38,38 +39,58 @@ public class SubjectsController implements Initializable {
         clearForm();
     }
 
+    private void loadSubjectsFromDatabase() {
+        try {
+            List<Subject> loadedSubjects = DatabaseManager.loadSubjects(LoginController.currentUserID);
+            subjects.setAll(loadedSubjects);
+        } catch (SQLException e) {
+            showAlert("Database Error", "Failed to load subjects: " + e.getMessage());
+        }
+    }
+
     @FXML
     private void handleSaveSubject() {
         if (subjectNameField.getText().isBlank() || difficultyField.getText().isBlank()) {
-            System.err.println("Subject Name and Difficulty are required."); return;
+            showAlert("Validation Error", "Subject Name and Difficulty are required.");
+            return;
         }
         try {
             int difficulty = Integer.parseInt(difficultyField.getText().trim());
             String examDate = examDateField.getText().trim();
             if (selectedSubject == null) {
-                subjects.add(new Subject(subjectNameField.getText(), difficulty, examDate));
+                Subject newSubject = new Subject(subjectNameField.getText(), difficulty, examDate);
+                int newId = DatabaseManager.insertSubject(newSubject, LoginController.currentUserID);
+                newSubject.setId(newId);
+                subjects.add(newSubject);
             } else {
                 selectedSubject.setName(subjectNameField.getText());
                 selectedSubject.setDifficulty(difficulty);
                 selectedSubject.setExamDate(examDate);
+                DatabaseManager.updateSubject(selectedSubject);
                 subjectsListView.refresh();
             }
             clearForm();
         } catch (NumberFormatException e) {
-            System.err.println("Difficulty must be a number.");
+            showAlert("Validation Error", "Difficulty must be a number.");
+        } catch (SQLException e) {
+            showAlert("Database Error", "Failed to save subject: " + e.getMessage());
         }
     }
 
     @FXML private void handleDeleteSubject() {
-        if (selectedSubject != null) subjects.remove(selectedSubject);
-        // FIX 1: Clear the form after deleting the subject.
-        clearForm();
+        if (selectedSubject != null) {
+            try {
+                DatabaseManager.deleteSubject(selectedSubject.getId());
+                subjects.remove(selectedSubject);
+                clearForm();
+            } catch (SQLException e) {
+                showAlert("Database Error", "Failed to delete subject: " + e.getMessage());
+            }
+        }
     }
 
     @FXML private void handleClearForm() {
         subjectsListView.getSelectionModel().clearSelection();
-        // FIX 2: Explicitly call clearForm() to ensure the form fields are reset.
-        clearForm();
     }
 
     private void populateForm(Subject subject) {
@@ -91,5 +112,13 @@ public class SubjectsController implements Initializable {
         saveButton.setText("Add Subject");
         deleteButton.setVisible(false);
         deleteButton.setManaged(false);
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
